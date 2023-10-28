@@ -29,7 +29,7 @@ export const action = async ({request}) => {
     authData.name = data.get('name')
   }
 
-  const response = await fetch('http://localhost:4000/api/auth/' + mode, {
+  const response = await fetch('https://faithful-dog-gear.cyclic.app/api/auth/' + mode, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'

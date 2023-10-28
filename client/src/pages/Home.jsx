@@ -24,6 +24,6 @@ export const loader = async ({request}) => {
   const searchParams = new URL(request.url).searchParams;
   const param = searchParams.get('category');
   
-  const response = await fetch(`http://localhost:4000/api/category`);
+  const response = await fetch(`https://faithful-dog-gear.cyclic.app/api/category`);
   return response.json()
 }
