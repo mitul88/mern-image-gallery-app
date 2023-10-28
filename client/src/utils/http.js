@@ -4,8 +4,10 @@ export const queryClient = new QueryClient({
     defaultOptions: { queries: { suspense: true }}
 });
 
+const BASE_URL = "https://faithful-dog-gear.cyclic.app/";
+
 export const fetchCategories = async () => {
-  const response = await fetch(`http://localhost:4000/api/category`);
+  const response = await fetch(`${BASE_URL}/api/category`);
 
   if (!response.ok) {
     const error = new Error('An error occurred while fetching categories');
@@ -20,7 +22,7 @@ export const fetchCategories = async () => {
 
 export const fetchImages = async ({pageParam=1, limit, category, user}) => {
  
-  let url = `http://localhost:4000/api/image/?page=${pageParam}`;
+  let url = `${BASE_URL}/api/image/?page=${pageParam}`;
   
   if(category && user && limit) {
     url += '&limit=' + limit + '&category=' +  category + '&user=' + user;
@@ -49,7 +51,7 @@ export const editImageInformation = async (imageData) => {
     "category": formData.get('category')
   }
 
-  const response = await fetch(`http://localhost:4000/api/image/${imageId}`, {
+  const response = await fetch(`${BASE_URL}/api/image/${imageId}`, {
     method: "put",
     body: JSON.stringify(postData),
     headers: {
@@ -70,7 +72,7 @@ export const editImageInformation = async (imageData) => {
   return data;
 } 
 export const fetchImage = async ({id, signal}) => {
-  const response = await fetch(`http://localhost:4000/api/image/${id}`, { signal });
+  const response = await fetch(`${BASE_URL}/api/image/${id}`, { signal });
 
   if (!response.ok) {
     const error = new Error('An error occurred while fetching the image');
@@ -85,7 +87,7 @@ export const fetchImage = async ({id, signal}) => {
 }
 
 export const fetchUser = async ({ id, signal }) => {
-    const response = await fetch(`http://localhost:4000/api/user/${id}`, { signal });
+    const response = await fetch(`${BASE_URL}/api/user/${id}`, { signal });
     if (!response.ok) {
       const error = new Error('An error occurred while fetching the user');
       error.code = response.status;
@@ -120,7 +122,7 @@ export const postComment = async (commentData) => {
     }
   } 
 
-  const response = await fetch(`http://localhost:4000/api/comment/`, {
+  const response = await fetch(`${BASE_URL}/api/comment/`, {
     method: method,
     body: JSON.stringify(postData),
     headers: {
@@ -142,7 +144,7 @@ export const postComment = async (commentData) => {
 }
 
 export const fetchComments = async ({id, signal}) => {
-  const response = await fetch(`http://localhost:4000/api/comment/image-comments/${id}`, { signal });
+  const response = await fetch(`${BASE_URL}/api/comment/image-comments/${id}`, { signal });
 
   if (!response.ok) {
     const error = new Error('An error occurred while fetching the comments');
@@ -164,7 +166,7 @@ export const postLike = async (likeData) => {
     "image_id": formData.get('image_id')
   }
 
-  const response = await fetch(`http://localhost:4000/api/like/`, {
+  const response = await fetch(`${BASE_URL}/api/like/`, {
     method: method,
     body: JSON.stringify(postData),
     headers: {
@@ -188,14 +190,14 @@ export const postLike = async (likeData) => {
 export const fetchLikes = async ({id, token, signal}) => {
   let response;
   if (token !== null) {
-    response = await fetch(`http://localhost:4000/api/like/counts/${id}`,{
+    response = await fetch(`${BASE_URL}/api/like/counts/${id}`,{
     method: "GET",
     headers: {
       'authorization': `Bearer ${token}`
     }
   }, { signal });
   } else {
-    response = await fetch(`http://localhost:4000/api/like/counts/${id}`, { signal });
+    response = await fetch(`${BASE_URL}/api/like/counts/${id}`, { signal });
   }
   
   if (!response.ok) {
@@ -215,7 +217,7 @@ export const postProfilePhoto = async (photoData) => {
   const token = photoData.token;
   const userId = photoData.userId;
 
-  const response = await fetch(`http://localhost:4000/api/user/upload-profile-photo/${userId}`, {
+  const response = await fetch(`${BASE_URL}/api/user/upload-profile-photo/${userId}`, {
     method: "POST",
     body: formData,
     headers: {
@@ -246,7 +248,7 @@ export const editSingleInput = async (inputData) => {
     "profession" : formData.get('profession'),
   }
 
-  const response = await fetch(`http://localhost:4000/api/user/single-update/${userId}`, {
+  const response = await fetch(`${BASE_URL}/api/user/single-update/${userId}`, {
     method: "PATCH",
     body: JSON.stringify(postData),
     headers: {
@@ -280,7 +282,7 @@ export const userUpdate = async (updateData) => {
     "profession" : formData.get('profession'),
   }
 
-  const response = await fetch(`http://localhost:4000/api/user/update/${userId}`, {
+  const response = await fetch(`${BASE_URL}/api/user/update/${userId}`, {
     method: "PUT",
     body: JSON.stringify(postData),
     headers: {
@@ -305,7 +307,7 @@ export const deleteProfilePhoto = async (deletePhotoData) => {
   const token = deletePhotoData.token;
   const userId = deletePhotoData.userId;
 
-  const response = await fetch(`http://localhost:4000/api/user/profile-photo-delete/${userId}`, {
+  const response = await fetch(`${BASE_URL}/api/user/profile-photo-delete/${userId}`, {
     method: "DELETE",
     headers: {
       'Content-Type': 'application/json',
@@ -337,7 +339,7 @@ export const changePassword = async (changePasswordData) => {
     confirmNewPass: formData.get('confirmNewPass')
   }
 
-  const response = await fetch(`http://localhost:4000/api/user/change-password/${userId}`, {
+  const response = await fetch(`${BASE_URL}/api/user/change-password/${userId}`, {
     method: 'POST',
     body: JSON.stringify(changePasswordPost),
     headers: {
@@ -364,7 +366,7 @@ export const changeProfilePhoto = async (photoData) => {
   const token = photoData.token;
   const userId = photoData.userId;
 
-  const response = await fetch(`http://localhost:4000/api/user/change-profile-photo/${userId}`, {
+  const response = await fetch(`${BASE_URL}/api/user/change-profile-photo/${userId}`, {
     method: "PUT",
     body: formData,
     headers: {
@@ -389,7 +391,7 @@ export const postImage = async (imageData) => {
   const formData = imageData.formData;
   const token = imageData.token;
 
-  const response = await fetch(`http://localhost:4000/api/image/upload/`, {
+  const response = await fetch(`${BASE_URL}/api/image/upload/`, {
     method: "POST",
     body: formData,
     headers: {
@@ -413,7 +415,7 @@ export const deleteImage = async (imageData) => {
   const token = imageData.token;
   const imageId = imageData.imageId
 
-  const response = await fetch(`http://localhost:4000/api/image/delete-image/${imageId}`, {
+  const response = await fetch(`${BASE_URL}/api/image/delete-image/${imageId}`, {
     method: "DELETE",
     headers: {
       'authorization': `Bearer ${token}`,
@@ -436,7 +438,7 @@ export const deleteBio = async (bioData) => {
   const token = bioData.token;
   const userId = bioData.userId
 
-  const response = await fetch(`http://localhost:4000/api/user/delete-bio/${userId}`, {
+  const response = await fetch(`${BASE_URL}/api/user/delete-bio/${userId}`, {
     method: "DELETE",
     headers: {
       'authorization': `Bearer ${token}`,
@@ -460,7 +462,7 @@ export const deleteInterest = async (interestData) => {
   const token = interestData.token;
   const userId = interestData.userId
 
-  const response = await fetch(`http://localhost:4000/api/user/delete-interest/${userId}/${interest}`, {
+  const response = await fetch(`${BASE_URL}/api/user/delete-interest/${userId}/${interest}`, {
     method: "DELETE",
     headers: {
       'authorization': `Bearer ${token}`,
