@@ -35,7 +35,7 @@ export const fetchImages = async ({pageParam=1, limit, category, user}) => {
   }
   
   const response = await fetch( url )
-   return response.json()
+  return response.json()
 }
 
 export const editImageInformation = async (imageData) => {

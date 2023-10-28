@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const morgan = require('morgan');
 const { ENV_CONFIG } = require('../config/env.config');
@@ -12,7 +13,9 @@ module.exports = (app) => {
     }));
     app.use(express.static('public'))
     app.use('*', cloudinaryConfig)
-    
+
+    app.use(express.static(path.join(__dirname, "../../client/build")));
+
     if (ENV_CONFIG.node_env === 'development') {
         app.use(morgan('dev'));
     }

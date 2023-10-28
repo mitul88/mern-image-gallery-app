@@ -2,7 +2,6 @@ import React, { Suspense } from 'react';
 import HeroSection from '../components/HeroSection';
 import ImageList from '../components/ImageList';
 import Loading from '../ui/Loading';
-import { fetchCategories } from '../utils/http';
 import { useLoaderData } from 'react-router';
 
 const HomePage = () => {
