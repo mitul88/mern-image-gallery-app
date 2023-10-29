@@ -4,7 +4,7 @@ export const queryClient = new QueryClient({
     defaultOptions: { queries: { suspense: true }}
 });
 
-const BASE_URL = "https://faithful-dog-gear.cyclic.app";
+const BASE_URL = "https://galleria.cyclic.app";
 
 export const fetchCategories = async () => {
   const response = await fetch(`${BASE_URL}/api/category`);
